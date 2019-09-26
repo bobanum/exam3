@@ -3,27 +3,47 @@
  * @module App
  */
 export default class App {
-	/**
-	 * Méthode principale. Sera typiquement appelée après le chargement de la page.
-	 */
 	static main() {
 		this.app = document.getElementById("app");
-		this.chargerJson("http://prof-tim.cstj.qc.ca/martinboudreau/proxy.php/http://dnd5eapi.co/api/monsters").then(data => {
-			this.app.appendChild(this.liste(data.results))
-		});
+		//L'adresse : "http://prof-tim.cstj.qc.ca/martinboudreau/proxy.php/http://dnd5eapi.co/api/monsters").then(data => {
 	}
 	static liste(donnees) {
-		var resultat = document.createElement("select");
-		resultat.setAttribute("name", "monsters");
-		resultat.setAttribute("id", "monsters");
-		donnees.map(donnee => {
-			var option = resultat.appendChild(document.createElement("option"));
-			option.setAttribute("value", donnee.url);
-			option.innerHTML = donnee.name;
-		});
-		resultat.setAttribute("onchange", "window.open(this.value);");
-		return resultat;
+		// La valeur de données doit être un tableau/array
+		// Le code à reproduire :
+		// <select name="monsters" id="monsters" onchange="window.open(this.value);">
+		// 	<option value="http://www.dnd5eapi.co/api/monsters/1">Aboleth</option>
+		// 	<option value="http://www.dnd5eapi.co/api/monsters/2">Acolyte</option>
+		// 	<option value="http://www.dnd5eapi.co/api/monsters/325">Zombie</option>
+		// </select>
 	}
+	/*
+	░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+	░░ GRILLE DE CORRECTION                                        ░░
+	░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+
+	AJAX (/6)
+	=================================================================
+		/3	Utilisation de la bonne fonction de récupération de données
+		/1	Utilisation de l'adresse donnée
+		/2	Utilisation de la promesse
+	
+	JAVASCRIPT (/8)
+	=================================================================
+		/1	Utilisation de la méthode "liste"
+		/1	- Envoi d'un array
+		/1	- Utilisation du résultat
+		/1	Utilisation d'une boucle
+		/1	- Parcourt le tableau
+		/1	- Récupération d'un élément (objet) du tableau
+		/2	- Utilisation des données de l'objet (2x)
+	
+	DOM (/6)
+	=================================================================
+		/2	Création des éléments (2x)
+		/1	Imbrication des éléments (2x)
+		/2	Ajout des attributs (4x)
+		/1	Ajout du label
+	*/
 	static chargerJson(url) {
 		return new Promise(resolve => {
 			var xhr = new XMLHttpRequest();
